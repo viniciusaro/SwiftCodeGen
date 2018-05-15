@@ -1,0 +1,9 @@
+{% if method.hasReturnType %}
+{% if method.hasParameters %}
+    {% include "RepositoryMethodWithParametersAndReturn.stencil" %}{% else %}
+    {% include "RepositoryMethodWithNoParametersAndReturn.stencil" %}{% endif %}
+{% else %}
+{% if method.hasParameters %}
+    {% include "RepositoryMethodWithParametersAndNoReturn.stencil" %}{% else %}
+    {% include "RepositoryMethodWithNoParametersAndNoReturn.stencil" %}{% endif %}
+{% endif %}

@@ -1,0 +1,11 @@
+struct Parameters: Encodable {
+    {% if target.bodyParameters %}{% filter indent:4 %}{% include "TargetBodyParameters.stencil" %}{% endfilter %}{% endif %}
+    {% if target.queryParameters %}{% filter indent:4 %}{% include "TargetQueryParameters.stencil" %}{% endfilter %}{% endif %}
+    {% if target.pathParameters %}{% filter indent:4 %}{% include "TargetPathParameters.stencil" %}{% endfilter %}{% endif %}
+    func asMoyaHeader() -> [String: Any] {
+        return [String: Any]()
+        {% if target.bodyParameters %}.merging(self.body.asHeaders(), uniquingKeysWith: { (f, s) in f }){% endif %}
+        {% if target.queryParameters %}.merging(self.query.asHeaders(), uniquingKeysWith: { (f, s) in f }){% endif %}
+        {% if target.pathParameters %}.merging(self.path.asHeaders(), uniquingKeysWith: { (f, s) in f }){% endif %}
+    }
+}

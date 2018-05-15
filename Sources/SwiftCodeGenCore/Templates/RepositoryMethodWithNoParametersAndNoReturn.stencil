@@ -1,0 +1,9 @@
+{% if method.description %}/**
+    {{ method.description }}
+    */{% endif %}
+    func {{ method.name }}(headers: [String: String]?) -> Completable {
+        return self.provider
+            .rx.request(.init({{ method.targetName }}(headers: headers)))
+            .asObservable()
+            .ignoreElements()
+    }

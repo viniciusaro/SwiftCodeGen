@@ -1,0 +1,11 @@
+let path: Path
+
+struct Path: Encodable {
+{% for property in target.pathParameters %}
+    {% include "Property.stencil" %}{% endfor %}
+
+    init({% for property in target.pathParameters %}{{ property.name }}: {{ property.type }}{% if not property.required %}? = nil{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
+        {% for property in target.pathParameters %}
+        self.{{ property.name }} = {{ property.name }}{% endfor %}
+    }
+}

@@ -1,0 +1,7 @@
+import Foundation
+{% for definition in definitions %}
+struct {{ definition.name }}: Codable {
+{% for property in definition.properties %}
+    {% include "Property.stencil" %}{% endfor %}
+}
+{% endfor %}

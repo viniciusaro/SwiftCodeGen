@@ -1,0 +1,5 @@
+var task: Task {
+    return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
+}
+
+let parameters: Parameters

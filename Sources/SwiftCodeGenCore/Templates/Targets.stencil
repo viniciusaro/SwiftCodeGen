@@ -1,0 +1,31 @@
+import Moya
+import Foundation
+{% for target in targets %}
+{% include "TargetSummary.stencil" %}
+struct {{ target.name }}: Moya.TargetType {
+    
+    let sampleData = Data()
+    let method: Moya.Method = .{{ target.method }}
+    let headers: [String: String]?
+    let baseURL = URL(string: "{{ target.baseURL }}")!
+    var path: String {
+        return "{{ target.path }}"
+    }
+    {% if target.hasParameters %}
+    {% filter indent:4 %}{% include "TargetParametersHeader.stencil" %}{% endfilter %}
+    {% filter indent:4 %}{% include "TargetParameters.stencil" %}{% endfilter %}
+    {% else %}
+    let task: Task = .requestPlain
+    {% endif %}
+}
+{% endfor %}
+
+extension Encodable {
+    func asHeaders() -> [String: Any] {
+        guard let data = try? JSONEncoder().encode(self),
+            let json = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? [String: Any] else {
+            return [:]
+        }
+        return json
+    }
+}

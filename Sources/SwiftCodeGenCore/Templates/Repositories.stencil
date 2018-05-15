@@ -1,0 +1,22 @@
+import Foundation
+import Moya
+import RxMoya
+import RxSwift
+
+{% for repository in repositories %}
+protocol {{ repository.name }}Type {
+    {% for method in repository.methods %}{% include "RepositoryMethodInterface.stencil" %}{% endfor %}
+}
+{% endfor %}
+
+{% for repository in repositories %}
+final class {{ repository.name }}: {{ repository.name }}Type {
+
+    private let provider: MoyaProvider<MultiTarget>
+
+    init(provider: MoyaProvider<MultiTarget>) {
+        self.provider = provider
+    }
+    {% for method in repository.methods %}{% include "RepositoryMethod.stencil" %}{% endfor %}
+}
+{% endfor %}

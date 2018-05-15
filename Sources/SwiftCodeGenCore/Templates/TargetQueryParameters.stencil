@@ -1,0 +1,11 @@
+let query: Query
+
+struct Query: Encodable {
+{% for property in target.queryParameters %}
+    {% include "Property.stencil" %}{% endfor %}
+
+    init({% for property in target.queryParameters %}{{ property.name }}: {{ property.type }}{% if not property.required %}? = nil{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
+        {% for property in target.queryParameters %}
+        self.{{ property.name }} = {{ property.name }}{% endfor %}
+    }
+}

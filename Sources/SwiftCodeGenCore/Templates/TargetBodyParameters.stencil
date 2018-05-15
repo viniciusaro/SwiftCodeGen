@@ -1,0 +1,11 @@
+let body: Body
+
+struct Body: Encodable {
+{% for property in target.bodyParameters %}
+    {% include "Property.stencil" %}{% endfor %}
+
+    init({% for property in target.bodyParameters %}{{ property.name }}: {{ property.type }}{% if not property.required %}? = nil{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}) {
+        {% for property in target.bodyParameters %}
+        self.{{ property.name }} = {{ property.name }}{% endfor %}
+    }
+}

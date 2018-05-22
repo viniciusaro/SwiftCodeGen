@@ -1,9 +1,9 @@
 {% if method.hasReturnType %}
 {% if method.hasParameters %}
-    func {{ method.name }}(headers: [String: String]?, parameters: {{ method.targetName }}.Parameters) -> Single<{{ method.returnType }}>{% else %}
-    func {{ method.name }}(headers: [String: String]?) -> Single<{{ method.returnType }}>{% endif %}
+    func {{ method.name }}(parameters: {{ method.targetName }}.Parameters) -> Single<{{ method.returnType }}>{% else %}
+    func {{ method.name }}() -> Single<{{ method.returnType }}>{% endif %}
 {% else %}
 {% if method.hasParameters %}
-    func {{ method.name }}(headers: [String: String]?, parameters: {{ method.targetName }}.Parameters) -> Completable{% else %}
-    func {{ method.name }}(headers: [String: String]?) -> Completable{% endif %}
+    func {{ method.name }}(parameters: {{ method.targetName }}.Parameters) -> Completable{% else %}
+    func {{ method.name }}() -> Completable{% endif %}
 {% endif %}

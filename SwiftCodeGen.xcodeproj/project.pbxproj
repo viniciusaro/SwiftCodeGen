@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		6368F22720B48E32001FEBBF /* BaseTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368F22620B48E32001FEBBF /* BaseTarget.swift */; };
+		6368F22920B4A439001FEBBF /* RequestProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368F22820B4A439001FEBBF /* RequestProvider.swift */; };
 		OBJ_340 /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_304 /* AFError.swift */; };
 		OBJ_341 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_305 /* Alamofire.swift */; };
 		OBJ_342 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_306 /* DispatchQueue+Alamofire.swift */; };
@@ -512,6 +514,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6368F22620B48E32001FEBBF /* BaseTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTarget.swift; sourceTree = "<group>"; };
+		6368F22820B4A439001FEBBF /* RequestProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProvider.swift; sourceTree = "<group>"; };
 		"Alamofire::Alamofire::Product" /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Moya::Moya::Product" /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Moya::RxMoya::Product" /* RxMoya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxMoya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1339,6 +1343,8 @@
 				OBJ_39 /* Definitions.Generated.swift */,
 				OBJ_40 /* Repositories.Generated.swift */,
 				OBJ_41 /* Targets.Generated.swift */,
+				6368F22620B48E32001FEBBF /* BaseTarget.swift */,
+				6368F22820B4A439001FEBBF /* RequestProvider.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -1379,7 +1385,7 @@
 			path = Tests/SwiftCodeGenTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -1388,7 +1394,6 @@
 				OBJ_50 /* Dependencies */,
 				OBJ_321 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_50 /* Dependencies */ = {
@@ -1923,7 +1928,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_321 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2365,6 +2370,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				6368F22920B4A439001FEBBF /* RequestProvider.swift in Sources */,
+				6368F22720B48E32001FEBBF /* BaseTarget.swift in Sources */,
 				OBJ_750 /* Definitions.Generated.swift in Sources */,
 				OBJ_751 /* Repositories.Generated.swift in Sources */,
 				OBJ_752 /* Targets.Generated.swift in Sources */,

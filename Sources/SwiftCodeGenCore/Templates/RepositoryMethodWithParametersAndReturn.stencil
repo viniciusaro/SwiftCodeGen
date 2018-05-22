@@ -1,8 +1,8 @@
 {% if method.description %}/**
     {{ method.description }}
     */{% endif %}
-    func {{ method.name }}(headers: [String: String]?, parameters: {{ method.targetName }}.Parameters) -> Single<{{ method.returnType }}> {
+    func {{ method.name }}(parameters: {{ method.targetName }}.Parameters) -> Single<{{ method.returnType }}> {
         return self.provider
-            .rx.request(.init({{ method.targetName }}(headers: headers, parameters: parameters)))
+            .request({{ method.targetName }}(parameters: parameters))
             .map({{ method.returnType }}.self)
     }

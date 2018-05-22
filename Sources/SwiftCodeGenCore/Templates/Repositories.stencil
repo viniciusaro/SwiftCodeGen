@@ -12,9 +12,9 @@ protocol {{ repository.name }}Type {
 {% for repository in repositories %}
 final class {{ repository.name }}: {{ repository.name }}Type {
 
-    private let provider: MoyaProvider<MultiTarget>
+    private let provider: RequestProviderType
 
-    init(provider: MoyaProvider<MultiTarget>) {
+    init(provider: RequestProviderType) {
         self.provider = provider
     }
     {% for method in repository.methods %}{% include "RepositoryMethod.stencil" %}{% endfor %}

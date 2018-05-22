@@ -7,72 +7,72 @@ import RxSwift
 protocol StoreRepositoryType {
     
 
-    func postStoreOrder(headers: [String: String]?, parameters: PostStoreOrderTarget.Parameters) -> Single<Order>
+    func postStoreOrder(parameters: PostStoreOrderTarget.Parameters) -> Single<Order>
 
 
-    func getStoreInventory(headers: [String: String]?) -> Single<Int>
+    func getStoreInventory() -> Single<Int>
 
 
-    func deleteStoreOrderByOrderId(headers: [String: String]?, parameters: DeleteStoreOrderByOrderIdTarget.Parameters) -> Completable
+    func deleteStoreOrderByOrderId(parameters: DeleteStoreOrderByOrderIdTarget.Parameters) -> Completable
 
 
-    func getStoreOrderByOrderId(headers: [String: String]?, parameters: GetStoreOrderByOrderIdTarget.Parameters) -> Single<Order>
+    func getStoreOrderByOrderId(parameters: GetStoreOrderByOrderIdTarget.Parameters) -> Single<Order>
 
 }
 
 protocol PetRepositoryType {
     
 
-    func deletePetByPetId(headers: [String: String]?, parameters: DeletePetByPetIdTarget.Parameters) -> Completable
+    func deletePetByPetId(parameters: DeletePetByPetIdTarget.Parameters) -> Completable
 
 
-    func getPetByPetId(headers: [String: String]?, parameters: GetPetByPetIdTarget.Parameters) -> Single<Pet>
+    func getPetByPetId(parameters: GetPetByPetIdTarget.Parameters) -> Single<Pet>
 
 
-    func postPetByPetId(headers: [String: String]?, parameters: PostPetByPetIdTarget.Parameters) -> Completable
+    func postPetByPetId(parameters: PostPetByPetIdTarget.Parameters) -> Completable
 
 
-    func getPetFindByStatus(headers: [String: String]?, parameters: GetPetFindByStatusTarget.Parameters) -> Single<[Pet]>
+    func getPetFindByStatus(parameters: GetPetFindByStatusTarget.Parameters) -> Single<[Pet]>
 
 
-    func postPetUploadImageByPetId(headers: [String: String]?, parameters: PostPetUploadImageByPetIdTarget.Parameters) -> Single<ApiResponse>
+    func postPetUploadImageByPetId(parameters: PostPetUploadImageByPetIdTarget.Parameters) -> Single<ApiResponse>
 
 
-    func getPetFindByTags(headers: [String: String]?, parameters: GetPetFindByTagsTarget.Parameters) -> Single<[Pet]>
+    func getPetFindByTags(parameters: GetPetFindByTagsTarget.Parameters) -> Single<[Pet]>
 
 
-    func putPet(headers: [String: String]?, parameters: PutPetTarget.Parameters) -> Completable
+    func putPet(parameters: PutPetTarget.Parameters) -> Completable
 
 
-    func postPet(headers: [String: String]?, parameters: PostPetTarget.Parameters) -> Completable
+    func postPet(parameters: PostPetTarget.Parameters) -> Completable
 
 }
 
 protocol UserRepositoryType {
     
 
-    func deleteUserByUsername(headers: [String: String]?, parameters: DeleteUserByUsernameTarget.Parameters) -> Completable
+    func deleteUserByUsername(parameters: DeleteUserByUsernameTarget.Parameters) -> Completable
 
 
-    func putUserByUsername(headers: [String: String]?, parameters: PutUserByUsernameTarget.Parameters) -> Completable
+    func putUserByUsername(parameters: PutUserByUsernameTarget.Parameters) -> Completable
 
 
-    func getUserByUsername(headers: [String: String]?, parameters: GetUserByUsernameTarget.Parameters) -> Single<User>
+    func getUserByUsername(parameters: GetUserByUsernameTarget.Parameters) -> Single<User>
 
 
-    func postUserCreateWithArray(headers: [String: String]?, parameters: PostUserCreateWithArrayTarget.Parameters) -> Completable
+    func postUserCreateWithArray(parameters: PostUserCreateWithArrayTarget.Parameters) -> Completable
 
 
-    func postUser(headers: [String: String]?, parameters: PostUserTarget.Parameters) -> Completable
+    func postUser(parameters: PostUserTarget.Parameters) -> Completable
 
 
-    func getUserLogout(headers: [String: String]?) -> Completable
+    func getUserLogout() -> Completable
 
 
-    func postUserCreateWithList(headers: [String: String]?, parameters: PostUserCreateWithListTarget.Parameters) -> Completable
+    func postUserCreateWithList(parameters: PostUserCreateWithListTarget.Parameters) -> Completable
 
 
-    func getUserLogin(headers: [String: String]?, parameters: GetUserLoginTarget.Parameters) -> Single<String>
+    func getUserLogin(parameters: GetUserLoginTarget.Parameters) -> Single<String>
 
 }
 
@@ -80,9 +80,9 @@ protocol UserRepositoryType {
 
 final class StoreRepository: StoreRepositoryType {
 
-    private let provider: MoyaProvider<MultiTarget>
+    private let provider: RequestProviderType
 
-    init(provider: MoyaProvider<MultiTarget>) {
+    init(provider: RequestProviderType) {
         self.provider = provider
     }
     
@@ -90,9 +90,9 @@ final class StoreRepository: StoreRepositoryType {
     /**
     Place an order for a pet
     */
-    func postStoreOrder(headers: [String: String]?, parameters: PostStoreOrderTarget.Parameters) -> Single<Order> {
+    func postStoreOrder(parameters: PostStoreOrderTarget.Parameters) -> Single<Order> {
         return self.provider
-            .rx.request(.init(PostStoreOrderTarget(headers: headers, parameters: parameters)))
+            .request(PostStoreOrderTarget(parameters: parameters))
             .map(Order.self)
     }
 
@@ -100,9 +100,9 @@ final class StoreRepository: StoreRepositoryType {
     /**
     Returns pet inventories by status
     */
-    func getStoreInventory(headers: [String: String]?) -> Single<Int> {
+    func getStoreInventory() -> Single<Int> {
         return self.provider
-            .rx.request(.init(GetStoreInventoryTarget(headers: headers)))
+            .request(GetStoreInventoryTarget())
             .map(Int.self)
     }
 
@@ -110,9 +110,9 @@ final class StoreRepository: StoreRepositoryType {
     /**
     Delete purchase order by ID
     */
-    func deleteStoreOrderByOrderId(headers: [String: String]?, parameters: DeleteStoreOrderByOrderIdTarget.Parameters) -> Completable {
+    func deleteStoreOrderByOrderId(parameters: DeleteStoreOrderByOrderIdTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(DeleteStoreOrderByOrderIdTarget(headers: headers, parameters: parameters)))
+            .request(DeleteStoreOrderByOrderIdTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -121,9 +121,9 @@ final class StoreRepository: StoreRepositoryType {
     /**
     Find purchase order by ID
     */
-    func getStoreOrderByOrderId(headers: [String: String]?, parameters: GetStoreOrderByOrderIdTarget.Parameters) -> Single<Order> {
+    func getStoreOrderByOrderId(parameters: GetStoreOrderByOrderIdTarget.Parameters) -> Single<Order> {
         return self.provider
-            .rx.request(.init(GetStoreOrderByOrderIdTarget(headers: headers, parameters: parameters)))
+            .request(GetStoreOrderByOrderIdTarget(parameters: parameters))
             .map(Order.self)
     }
 
@@ -131,9 +131,9 @@ final class StoreRepository: StoreRepositoryType {
 
 final class PetRepository: PetRepositoryType {
 
-    private let provider: MoyaProvider<MultiTarget>
+    private let provider: RequestProviderType
 
-    init(provider: MoyaProvider<MultiTarget>) {
+    init(provider: RequestProviderType) {
         self.provider = provider
     }
     
@@ -141,9 +141,9 @@ final class PetRepository: PetRepositoryType {
     /**
     Deletes a pet
     */
-    func deletePetByPetId(headers: [String: String]?, parameters: DeletePetByPetIdTarget.Parameters) -> Completable {
+    func deletePetByPetId(parameters: DeletePetByPetIdTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(DeletePetByPetIdTarget(headers: headers, parameters: parameters)))
+            .request(DeletePetByPetIdTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -152,9 +152,9 @@ final class PetRepository: PetRepositoryType {
     /**
     Find pet by ID
     */
-    func getPetByPetId(headers: [String: String]?, parameters: GetPetByPetIdTarget.Parameters) -> Single<Pet> {
+    func getPetByPetId(parameters: GetPetByPetIdTarget.Parameters) -> Single<Pet> {
         return self.provider
-            .rx.request(.init(GetPetByPetIdTarget(headers: headers, parameters: parameters)))
+            .request(GetPetByPetIdTarget(parameters: parameters))
             .map(Pet.self)
     }
 
@@ -162,9 +162,9 @@ final class PetRepository: PetRepositoryType {
     /**
     Updates a pet in the store with form data
     */
-    func postPetByPetId(headers: [String: String]?, parameters: PostPetByPetIdTarget.Parameters) -> Completable {
+    func postPetByPetId(parameters: PostPetByPetIdTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(PostPetByPetIdTarget(headers: headers, parameters: parameters)))
+            .request(PostPetByPetIdTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -173,9 +173,9 @@ final class PetRepository: PetRepositoryType {
     /**
     Finds Pets by status
     */
-    func getPetFindByStatus(headers: [String: String]?, parameters: GetPetFindByStatusTarget.Parameters) -> Single<[Pet]> {
+    func getPetFindByStatus(parameters: GetPetFindByStatusTarget.Parameters) -> Single<[Pet]> {
         return self.provider
-            .rx.request(.init(GetPetFindByStatusTarget(headers: headers, parameters: parameters)))
+            .request(GetPetFindByStatusTarget(parameters: parameters))
             .map([Pet].self)
     }
 
@@ -183,9 +183,9 @@ final class PetRepository: PetRepositoryType {
     /**
     uploads an image
     */
-    func postPetUploadImageByPetId(headers: [String: String]?, parameters: PostPetUploadImageByPetIdTarget.Parameters) -> Single<ApiResponse> {
+    func postPetUploadImageByPetId(parameters: PostPetUploadImageByPetIdTarget.Parameters) -> Single<ApiResponse> {
         return self.provider
-            .rx.request(.init(PostPetUploadImageByPetIdTarget(headers: headers, parameters: parameters)))
+            .request(PostPetUploadImageByPetIdTarget(parameters: parameters))
             .map(ApiResponse.self)
     }
 
@@ -193,9 +193,9 @@ final class PetRepository: PetRepositoryType {
     /**
     Finds Pets by tags
     */
-    func getPetFindByTags(headers: [String: String]?, parameters: GetPetFindByTagsTarget.Parameters) -> Single<[Pet]> {
+    func getPetFindByTags(parameters: GetPetFindByTagsTarget.Parameters) -> Single<[Pet]> {
         return self.provider
-            .rx.request(.init(GetPetFindByTagsTarget(headers: headers, parameters: parameters)))
+            .request(GetPetFindByTagsTarget(parameters: parameters))
             .map([Pet].self)
     }
 
@@ -203,9 +203,9 @@ final class PetRepository: PetRepositoryType {
     /**
     Update an existing pet
     */
-    func putPet(headers: [String: String]?, parameters: PutPetTarget.Parameters) -> Completable {
+    func putPet(parameters: PutPetTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(PutPetTarget(headers: headers, parameters: parameters)))
+            .request(PutPetTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -214,9 +214,9 @@ final class PetRepository: PetRepositoryType {
     /**
     Add a new pet to the store
     */
-    func postPet(headers: [String: String]?, parameters: PostPetTarget.Parameters) -> Completable {
+    func postPet(parameters: PostPetTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(PostPetTarget(headers: headers, parameters: parameters)))
+            .request(PostPetTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -225,9 +225,9 @@ final class PetRepository: PetRepositoryType {
 
 final class UserRepository: UserRepositoryType {
 
-    private let provider: MoyaProvider<MultiTarget>
+    private let provider: RequestProviderType
 
-    init(provider: MoyaProvider<MultiTarget>) {
+    init(provider: RequestProviderType) {
         self.provider = provider
     }
     
@@ -235,9 +235,9 @@ final class UserRepository: UserRepositoryType {
     /**
     Delete user
     */
-    func deleteUserByUsername(headers: [String: String]?, parameters: DeleteUserByUsernameTarget.Parameters) -> Completable {
+    func deleteUserByUsername(parameters: DeleteUserByUsernameTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(DeleteUserByUsernameTarget(headers: headers, parameters: parameters)))
+            .request(DeleteUserByUsernameTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -246,9 +246,9 @@ final class UserRepository: UserRepositoryType {
     /**
     Updated user
     */
-    func putUserByUsername(headers: [String: String]?, parameters: PutUserByUsernameTarget.Parameters) -> Completable {
+    func putUserByUsername(parameters: PutUserByUsernameTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(PutUserByUsernameTarget(headers: headers, parameters: parameters)))
+            .request(PutUserByUsernameTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -257,9 +257,9 @@ final class UserRepository: UserRepositoryType {
     /**
     Get user by user name
     */
-    func getUserByUsername(headers: [String: String]?, parameters: GetUserByUsernameTarget.Parameters) -> Single<User> {
+    func getUserByUsername(parameters: GetUserByUsernameTarget.Parameters) -> Single<User> {
         return self.provider
-            .rx.request(.init(GetUserByUsernameTarget(headers: headers, parameters: parameters)))
+            .request(GetUserByUsernameTarget(parameters: parameters))
             .map(User.self)
     }
 
@@ -267,9 +267,9 @@ final class UserRepository: UserRepositoryType {
     /**
     Creates list of users with given input array
     */
-    func postUserCreateWithArray(headers: [String: String]?, parameters: PostUserCreateWithArrayTarget.Parameters) -> Completable {
+    func postUserCreateWithArray(parameters: PostUserCreateWithArrayTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(PostUserCreateWithArrayTarget(headers: headers, parameters: parameters)))
+            .request(PostUserCreateWithArrayTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -278,9 +278,9 @@ final class UserRepository: UserRepositoryType {
     /**
     Create user
     */
-    func postUser(headers: [String: String]?, parameters: PostUserTarget.Parameters) -> Completable {
+    func postUser(parameters: PostUserTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(PostUserTarget(headers: headers, parameters: parameters)))
+            .request(PostUserTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -289,9 +289,9 @@ final class UserRepository: UserRepositoryType {
     /**
     Logs out current logged in user session
     */
-    func getUserLogout(headers: [String: String]?) -> Completable {
+    func getUserLogout() -> Completable {
         return self.provider
-            .rx.request(.init(GetUserLogoutTarget(headers: headers)))
+            .request(GetUserLogoutTarget())
             .asObservable()
             .ignoreElements()
     }
@@ -300,9 +300,9 @@ final class UserRepository: UserRepositoryType {
     /**
     Creates list of users with given input array
     */
-    func postUserCreateWithList(headers: [String: String]?, parameters: PostUserCreateWithListTarget.Parameters) -> Completable {
+    func postUserCreateWithList(parameters: PostUserCreateWithListTarget.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init(PostUserCreateWithListTarget(headers: headers, parameters: parameters)))
+            .request(PostUserCreateWithListTarget(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }
@@ -311,9 +311,9 @@ final class UserRepository: UserRepositoryType {
     /**
     Logs user into the system
     */
-    func getUserLogin(headers: [String: String]?, parameters: GetUserLoginTarget.Parameters) -> Single<String> {
+    func getUserLogin(parameters: GetUserLoginTarget.Parameters) -> Single<String> {
         return self.provider
-            .rx.request(.init(GetUserLoginTarget(headers: headers, parameters: parameters)))
+            .request(GetUserLoginTarget(parameters: parameters))
             .map(String.self)
     }
 

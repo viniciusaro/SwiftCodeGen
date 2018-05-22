@@ -1,9 +1,9 @@
 {% if method.description %}/**
     {{ method.description }}
     */{% endif %}
-    func {{ method.name }}(headers: [String: String]?, parameters: {{ method.targetName }}.Parameters) -> Completable {
+    func {{ method.name }}(parameters: {{ method.targetName }}.Parameters) -> Completable {
         return self.provider
-            .rx.request(.init({{ method.targetName }}(headers: headers, parameters: parameters)))
+            .request({{ method.targetName }}(parameters: parameters))
             .asObservable()
             .ignoreElements()
     }

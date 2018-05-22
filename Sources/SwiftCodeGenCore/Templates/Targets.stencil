@@ -1,16 +1,14 @@
 import Moya
 import Foundation
+
 {% for target in targets %}
 {% include "TargetSummary.stencil" %}
-struct {{ target.name }}: Moya.TargetType {
+struct {{ target.name }}: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .{{ target.method }}
-    let headers: [String: String]?
-    let baseURL = URL(string: "{{ target.baseURL }}")!
     var path: String {
         return "{{ target.path }}"
     }
+    let method: Moya.Method = .{{ target.method }}
     {% if target.hasParameters %}
     {% filter indent:4 %}{% include "TargetParametersHeader.stencil" %}{% endfilter %}
     {% filter indent:4 %}{% include "TargetParameters.stencil" %}{% endfilter %}

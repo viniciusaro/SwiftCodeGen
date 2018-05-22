@@ -1,18 +1,16 @@
 import Moya
 import Foundation
 
+
 /**
 Summary: Deletes a pet
  */
-struct DeletePetByPetIdTarget: Moya.TargetType {
+struct DeletePetByPetIdTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .delete
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/pet/\(self.parameters.path.petId)"
     }
+    let method: Moya.Method = .delete
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -47,15 +45,12 @@ struct DeletePetByPetIdTarget: Moya.TargetType {
 /**
 Summary: Find pet by ID
 Returns a single pet */
-struct GetPetByPetIdTarget: Moya.TargetType {
+struct GetPetByPetIdTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .get
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/pet/\(self.parameters.path.petId)"
     }
+    let method: Moya.Method = .get
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -90,15 +85,12 @@ struct GetPetByPetIdTarget: Moya.TargetType {
 /**
 Summary: Updates a pet in the store with form data
  */
-struct PostPetByPetIdTarget: Moya.TargetType {
+struct PostPetByPetIdTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .post
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/pet/\(self.parameters.path.petId)"
     }
+    let method: Moya.Method = .post
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -133,15 +125,12 @@ struct PostPetByPetIdTarget: Moya.TargetType {
 /**
 Summary: Finds Pets by status
 Multiple status values can be provided with comma separated strings */
-struct GetPetFindByStatusTarget: Moya.TargetType {
+struct GetPetFindByStatusTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .get
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/pet/findByStatus"
     }
+    let method: Moya.Method = .get
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -176,15 +165,12 @@ struct GetPetFindByStatusTarget: Moya.TargetType {
 /**
 Summary: Delete user
 This can only be done by the logged in user. */
-struct DeleteUserByUsernameTarget: Moya.TargetType {
+struct DeleteUserByUsernameTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .delete
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/user/\(self.parameters.path.username)"
     }
+    let method: Moya.Method = .delete
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -219,15 +205,12 @@ struct DeleteUserByUsernameTarget: Moya.TargetType {
 /**
 Summary: Updated user
 This can only be done by the logged in user. */
-struct PutUserByUsernameTarget: Moya.TargetType {
+struct PutUserByUsernameTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .put
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/user/\(self.parameters.path.username)"
     }
+    let method: Moya.Method = .put
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -272,15 +255,12 @@ struct PutUserByUsernameTarget: Moya.TargetType {
 /**
 Summary: Get user by user name
  */
-struct GetUserByUsernameTarget: Moya.TargetType {
+struct GetUserByUsernameTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .get
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/user/\(self.parameters.path.username)"
     }
+    let method: Moya.Method = .get
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -315,15 +295,12 @@ struct GetUserByUsernameTarget: Moya.TargetType {
 /**
 Summary: uploads an image
  */
-struct PostPetUploadImageByPetIdTarget: Moya.TargetType {
+struct PostPetUploadImageByPetIdTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .post
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/pet/\(self.parameters.path.petId)/uploadImage"
     }
+    let method: Moya.Method = .post
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -358,15 +335,12 @@ struct PostPetUploadImageByPetIdTarget: Moya.TargetType {
 /**
 Summary: Finds Pets by tags
 Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing. */
-struct GetPetFindByTagsTarget: Moya.TargetType {
+struct GetPetFindByTagsTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .get
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/pet/findByTags"
     }
+    let method: Moya.Method = .get
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -401,15 +375,12 @@ struct GetPetFindByTagsTarget: Moya.TargetType {
 /**
 Summary: Creates list of users with given input array
  */
-struct PostUserCreateWithArrayTarget: Moya.TargetType {
+struct PostUserCreateWithArrayTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .post
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/user/createWithArray"
     }
+    let method: Moya.Method = .post
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -444,15 +415,12 @@ struct PostUserCreateWithArrayTarget: Moya.TargetType {
 /**
 Summary: Update an existing pet
  */
-struct PutPetTarget: Moya.TargetType {
+struct PutPetTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .put
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/pet"
     }
+    let method: Moya.Method = .put
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -487,15 +455,12 @@ struct PutPetTarget: Moya.TargetType {
 /**
 Summary: Add a new pet to the store
  */
-struct PostPetTarget: Moya.TargetType {
+struct PostPetTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .post
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/pet"
     }
+    let method: Moya.Method = .post
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -530,15 +495,12 @@ struct PostPetTarget: Moya.TargetType {
 /**
 Summary: Create user
 This can only be done by the logged in user. */
-struct PostUserTarget: Moya.TargetType {
+struct PostUserTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .post
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/user"
     }
+    let method: Moya.Method = .post
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -573,15 +535,12 @@ struct PostUserTarget: Moya.TargetType {
 /**
 Summary: Logs out current logged in user session
  */
-struct GetUserLogoutTarget: Moya.TargetType {
+struct GetUserLogoutTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .get
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/user/logout"
     }
+    let method: Moya.Method = .get
     
     let task: Task = .requestPlain
     
@@ -590,15 +549,12 @@ struct GetUserLogoutTarget: Moya.TargetType {
 /**
 Summary: Place an order for a pet
  */
-struct PostStoreOrderTarget: Moya.TargetType {
+struct PostStoreOrderTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .post
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/store/order"
     }
+    let method: Moya.Method = .post
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -633,15 +589,12 @@ struct PostStoreOrderTarget: Moya.TargetType {
 /**
 Summary: Returns pet inventories by status
 Returns a map of status codes to quantities */
-struct GetStoreInventoryTarget: Moya.TargetType {
+struct GetStoreInventoryTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .get
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/store/inventory"
     }
+    let method: Moya.Method = .get
     
     let task: Task = .requestPlain
     
@@ -650,15 +603,12 @@ struct GetStoreInventoryTarget: Moya.TargetType {
 /**
 Summary: Creates list of users with given input array
  */
-struct PostUserCreateWithListTarget: Moya.TargetType {
+struct PostUserCreateWithListTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .post
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/user/createWithList"
     }
+    let method: Moya.Method = .post
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -693,15 +643,12 @@ struct PostUserCreateWithListTarget: Moya.TargetType {
 /**
 Summary: Logs user into the system
  */
-struct GetUserLoginTarget: Moya.TargetType {
+struct GetUserLoginTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .get
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/user/login"
     }
+    let method: Moya.Method = .get
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -738,15 +685,12 @@ struct GetUserLoginTarget: Moya.TargetType {
 /**
 Summary: Delete purchase order by ID
 For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors */
-struct DeleteStoreOrderByOrderIdTarget: Moya.TargetType {
+struct DeleteStoreOrderByOrderIdTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .delete
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/store/order/\(self.parameters.path.orderId)"
     }
+    let method: Moya.Method = .delete
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)
@@ -781,15 +725,12 @@ struct DeleteStoreOrderByOrderIdTarget: Moya.TargetType {
 /**
 Summary: Find purchase order by ID
 For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions */
-struct GetStoreOrderByOrderIdTarget: Moya.TargetType {
+struct GetStoreOrderByOrderIdTarget: BaseTargetType {
     
-    let sampleData = Data()
-    let method: Moya.Method = .get
-    let headers: [String: String]?
-    let baseURL = URL(string: "https://petstore.swagger.io/v2")!
     var path: String {
         return "/store/order/\(self.parameters.path.orderId)"
     }
+    let method: Moya.Method = .get
     
     var task: Task {
         return .requestParameters(parameters: self.parameters.asMoyaHeader(), encoding: URLEncoding.default)

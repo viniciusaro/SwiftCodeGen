@@ -1,6 +1,6 @@
 public struct MoyaSpec {
     let host: String
-    let basePath: String
+    let basePath: String?
     let targets: [Target]
     let repositories: [Repository]
     let definitions: [Definition]

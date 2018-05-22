@@ -2,7 +2,11 @@ import PathKit
 
 public final class PathParser {
 
-    public init() {}
+    private let tokenMap: [String: String]
+
+    public init(tokenMap: [String: String] = [:]) {
+        self.tokenMap = tokenMap
+    }
 
     func targetNameFrom(path: String, method: String) -> String {
         let verb = method.capitalizedFirst
@@ -18,8 +22,8 @@ public final class PathParser {
         return verb + nonParameters + parameters + "Target"
     }
 
-    func pathStringFrom(path pathString: String) -> String {
-        return Path(pathString).components
+    func pathStringFrom(path: String) -> String {
+        return Path(path).components
             .filter { $0 != "/" }
             .map { $0.replacingWildcardStringsWithStringReference("self.parameters.path.") }
             .map { "/" + $0 }
@@ -27,6 +31,7 @@ public final class PathParser {
     }
 
     func repositoryNameFrom(path: String) -> String {
+        let path = path.replacingOccurrencesWith(map: self.tokenMap)
         let mainName = Path(path).components
             .filter { $0 != "/" }
             .first ?? ""
@@ -36,6 +41,7 @@ public final class PathParser {
 }
 
 extension PathParser {
+    
     private func parameterComponentsFrom(path: String) -> [String] {
         return Path(path).components
             .filter { $0 != "/" }

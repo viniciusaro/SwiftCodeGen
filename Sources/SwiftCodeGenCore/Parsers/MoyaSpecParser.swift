@@ -89,7 +89,7 @@ public final class MoyaSpecParser {
 extension MoyaSpecParser {
 
     private func baseURLFrom(descriptor: SpecDescriptor) -> String {
-        return "https://" + descriptor.host + descriptor.basePath
+        return "https://" + descriptor.host + (descriptor.basePath ?? "")
     }
 }
 
@@ -100,7 +100,7 @@ extension MoyaSpecParser {
         var properties: [Parameter] = []
         for (property, propertyDescriptor) in propertyCollection.values {
 
-            let propertyName = property
+            let propertyName = property.uncapitalizedFirst
             let propertyType = self.schemaParser.typeFrom(propertyDescriptor: propertyDescriptor)
             let required = definitionDescriptor.required?.contains(property) ?? false
             let property = Parameter(name: propertyName, type: propertyType, required: required)
@@ -129,7 +129,7 @@ extension MoyaSpecParser {
         return self.pathParser.repositoryNameFrom(path: path)
     }
 
-    private func summaryFrom(targetDescriptor: TargetDescriptor) -> String {
+    private func summaryFrom(targetDescriptor: TargetDescriptor) -> String? {
         return targetDescriptor.summary
     }
 
@@ -163,7 +163,8 @@ extension MoyaSpecParser {
         return parameters.filter({ $0.in == type })
             .map { descriptor in
                 let type = self.schemaParser.typeFrom(parameterDescriptor: descriptor)
-                return Parameter(name: descriptor.name, type: type, required: descriptor.required)
+                let parameterName = descriptor.name.mergingSubstringsSeparatedBy(".", mergingPolicy: .byCapitalizingSplits)
+                return Parameter(name: parameterName, type: type, required: descriptor.required)
         }
     }
 }

@@ -1,5 +1,5 @@
 struct TargetDescriptor: Decodable {
-    let summary: String
+    let summary: String?
     let description: String?
     let tags: [String]
     let consumes: [String]?

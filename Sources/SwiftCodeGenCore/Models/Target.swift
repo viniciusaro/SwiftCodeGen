@@ -1,7 +1,7 @@
 struct Target {
     let baseURL: String
     let name: String
-    let summary: String
+    let summary: String?
     let description: String?
     let method: String
     let path: String

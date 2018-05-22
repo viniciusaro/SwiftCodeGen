@@ -20,7 +20,13 @@ final class GenerateCommand: Command {
         let data = contents.data(using: .utf8)!
 
         let specDescriptor = try JSONDecoder().decode(SpecDescriptor.self, from: data)
-        let specParser = MoyaSpecParser(pathParser: PathParser(), schemaParser: SchemaParser())
+        let pathParser = PathParser(tokenMap: [
+            "{subfolder}": "",
+            "{subfolders}": "",
+            "api": ""
+        ])
+        let schemaParser = SchemaParser()
+        let specParser = MoyaSpecParser(pathParser: pathParser, schemaParser: schemaParser)
         let spec = MoyaSpec(specParser: specParser, descriptor: specDescriptor)
 
         try MoyaGenerator(generatedPath: self.generatedPath()).generate(from: spec)

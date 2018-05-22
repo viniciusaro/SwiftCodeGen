@@ -41,6 +41,14 @@ extension String {
             .map { mergingPolicy.transform($0.element, index: $0.offset) }
             .joined()
     }
+
+    func replacingOccurrencesWith(map: [String: String]) -> String {
+        var string = self
+        for (key, value) in map {
+            string = string.replacingOccurrences(of: key, with: value)
+        }
+        return string
+    }
 }
 
 extension String {

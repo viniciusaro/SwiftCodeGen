@@ -1,6 +1,10 @@
 public final class SchemaParser {
 
-    public init() {}
+    private let tokenMap: [String: String]
+
+    public init(tokenMap: [String: String] = [:]) {
+        self.tokenMap = tokenMap
+    }
     
     func typeFrom(parameterDescriptor: ParameterDescriptor) -> String {
         switch parameterDescriptor.type {
@@ -41,9 +45,9 @@ public final class SchemaParser {
     }
 
     func cleanedUpReferenceType(from referenceType: String) -> String {
-        return referenceType.replacingOccurrences(of: "#/definitions/", with: "")
+        let referenceType = referenceType.replacingOccurrencesWith(map: self.tokenMap)
+        return referenceType
             .components(separatedBy: ".")
-            .subarrayAfterSeparatatorIfPresent("DTO")
             .joined()
             .replacingOccurrences(of: "[", with: "")
             .replacingOccurrences(of: "]", with: "")

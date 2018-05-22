@@ -20,12 +20,22 @@ final class GenerateCommand: Command {
         let data = contents.data(using: .utf8)!
 
         let specDescriptor = try JSONDecoder().decode(SpecDescriptor.self, from: data)
+
         let pathParser = PathParser(tokenMap: [
             "{subfolder}": "",
             "{subfolders}": "",
             "api": ""
         ])
-        let schemaParser = SchemaParser()
+
+        let schemaParser = SchemaParser(tokenMap: [
+            "Farfetch.BwCms.Application.Dto": "",
+            "#/definitions/": "",
+            "Commerce": "",
+            "SharedModels": "",
+            "Seo": "",
+            "ViewModels": "",
+        ])
+
         let specParser = MoyaSpecParser(pathParser: pathParser, schemaParser: schemaParser)
         let spec = MoyaSpec(specParser: specParser, descriptor: specDescriptor)
 
